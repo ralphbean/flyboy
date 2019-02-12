@@ -170,32 +170,30 @@ class Mob(Object):
 
         # Then, if the bad guy is not in line with the player, try to
         # move in line to get a good shot -- horizontally.
-        if self.x != player.x:
-            direction = player.x - self.x
-            if direction < 0:
-                if random.random() < 0.5:
-                    return self.move_left()
-                elif random.random() < 0.5:
-                    return self.fire_left()
-            elif direction > 0:
-                if random.random() < 0.5:
-                    return self.move_right()
-                elif random.random() < 0.5:
-                    return self.fire_right()
+        direction = player.x - self.x
+        if direction < 0:
+            if random.random() < 0.4:
+                return self.move_left()
+            elif random.random() < 0.4:
+                return self.fire_left()
+        elif direction > 0:
+            if random.random() < 0.4:
+                return self.move_right()
+            elif random.random() < 0.4:
+                return self.fire_right()
 
         # Then, do the same thing vertically!
-        if self.y != player.y:
-            direction = player.y - self.y
-            if direction < 0:
-                if random.random() < 0.5:
-                    return self.move_up()
-                elif random.random() < 0.5:
-                    return self.fire_up()
-            elif direction > 0:
-                if random.random() < 0.5:
-                    return self.move_down()
-                elif random.random() < 0.5:
-                    return self.fire_down()
+        direction = player.y - self.y
+        if direction < 0:
+            if random.random() < 0.4:
+                return self.move_up()
+            elif random.random() < 0.4:
+                return self.fire_up()
+        elif direction > 0:
+            if random.random() < 0.4:
+                return self.move_down()
+            elif random.random() < 0.4:
+                return self.fire_down()
 
 
 class Bullet(Object):
