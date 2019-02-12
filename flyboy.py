@@ -11,6 +11,7 @@ Run it with::
 
 import random
 import sys
+import uuid
 
 
 WIDTH = 80
@@ -148,6 +149,12 @@ class Mob(Object):
     It is just like any other object, except it has a 'move' method
     that defines how bad guys should move and shoot.
     """
+    def __init__(self, *args, **kwargs):
+        super(Mob, self).__init__(*args, **kwargs)
+        self.name = "Mob %s" % uuid.uuid4()
+
+    def __str__(self):
+        return self.name
 
     def move(self):
         # First, roll a dice and if a certain combination comes up,
@@ -245,6 +252,7 @@ class Bullet(Object):
                 print("You died.")
                 sys.exit(0)
 
+            print("%s died." % str(object))
             # Then, remove it from the list of things that move.
             if object in mobs:
                 mobs.remove(object)
