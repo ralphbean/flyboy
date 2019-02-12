@@ -69,11 +69,11 @@ class Object(object):
         at the (x, y) coordinates.
         """
         # Check every mob in existence
-        for mob in mobs:
+        for object in objects:
             # If its coordinates are equal to the coordinates given,
-            if mob.x == x and mob.y == y:
+            if object.x == x and object.y == y:
                 # Then raise an exception which halts this code path.
-                raise CollisionException(object=mob)
+                raise CollisionException(object=object)
 
     # Here follow the four movement methods for up, down, left, right.
     # Each are very similar, but slightly different.  Notice the
@@ -128,19 +128,20 @@ class Object(object):
     # also a velocity (dx, and dy) which lets the bullet know
     # which direction it should be moving.
     def fire_up(self):
-        mobs.append(Bullet(self.x, self.y-1, '"', dx=0, dy=1))
+        objects.append(Bullet(self.x, self.y-1, '"', dx=0, dy=1))
 
     def fire_down(self):
-        mobs.append(Bullet(self.x, self.y+1, '"', dx=0, dy=-1))
+        objects.append(Bullet(self.x, self.y+1, '"', dx=0, dy=-1))
 
     def fire_left(self):
-        mobs.append(Bullet(self.x-1, self.y, '=', dx=-1, dy=0))
+        objects.append(Bullet(self.x-1, self.y, '=', dx=-1, dy=0))
 
     def fire_right(self):
-        mobs.append(Bullet(self.x+1, self.y, '=', dx=1, dy=0))
+        objects.append(Bullet(self.x+1, self.y, '=', dx=1, dy=0))
 
     def move(self):
-        raise NotImplementedError("Base objects don't move on their own.")
+        # Base objects don't move on their own.
+        pass
 
 
 class Mob(Object):
@@ -252,8 +253,8 @@ class Bullet(Object):
 
             print("%s died." % str(object))
             # Then, remove it from the list of things that move.
-            if object in mobs:
-                mobs.remove(object)
+            if object in objects:
+                objects.remove(object)
 
 
 def display():
@@ -264,7 +265,7 @@ def display():
 
 def handle_win_condition():
     # If none of the moving things are bad guys now, then we win.
-    if not any([type(mob) == Mob for mob in mobs]):
+    if not any([type(mob) == Mob for mob in objects]):
         print("You win!")
         sys.exit(0)
 
@@ -296,7 +297,7 @@ def handle_input():
 
 def handle_mobs():
     # For all the mobs in the game.
-    for mob in mobs:
+    for mob in objects:
         try:
             # Have them decide how they should move.
             mob.move()
@@ -308,9 +309,12 @@ def handle_mobs():
 # Now, with all that code declared.  Define our starting objects.
 # A player, and a few mobs.
 player = Object(10, 10, '*')
-mobs = [
+objects = [
     Mob(random.randint(0, WIDTH - 1), random.randint(0, HEIGHT - 1), '+')
     for i in range(13)]
+# Add the player to the list of objects, for collision detection
+objects.append(player)
+
 
 # SEE HERE - this is the "main loop" of the program.
 # All the stuff above just defines things to be used in the game.
