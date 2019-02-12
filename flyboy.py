@@ -166,28 +166,28 @@ class Mob(Object):
         if self.x != player.x:
             direction = player.x - self.x
             if direction < 0:
-                if random.random() < 0.7:
+                if random.random() < 0.5:
                     return self.move_left()
-                else:
+                elif random.random() < 0.5:
                     return self.fire_left()
             elif direction > 0:
-                if random.random() < 0.7:
+                if random.random() < 0.5:
                     return self.move_right()
-                else:
+                elif random.random() < 0.5:
                     return self.fire_right()
 
         # Then, do the same thing vertically!
         if self.y != player.y:
             direction = player.y - self.y
             if direction < 0:
-                if random.random() < 0.7:
+                if random.random() < 0.5:
                     return self.move_up()
-                else:
+                elif random.random() < 0.5:
                     return self.fire_up()
             elif direction > 0:
-                if random.random() < 0.7:
+                if random.random() < 0.5:
                     return self.move_down()
-                else:
+                elif random.random() < 0.5:
                     return self.fire_down()
 
 
